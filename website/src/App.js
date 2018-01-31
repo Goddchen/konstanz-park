@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import './App.css';
 import axios from 'axios';
+import 'material-components-web/dist/material-components-web.min.css'
+import 'material-components-web/dist/material-components-web.js'
 
 class App extends Component {
   constructor() {
@@ -9,7 +11,7 @@ class App extends Component {
     this.loadData();
   }
   loadData() {
-    axios.get('http://192.168.0.178:3000/current')
+    axios.get('http://192.168.0.80:3000/current')
     .then(res => {
       this.setState({data: res.data.data, parkhausData: res.data.parkhausData});
     });
@@ -19,11 +21,20 @@ class App extends Component {
   }
   render() {
     return (
-      <div className="App">
-        <p>
-          {this.state.data.sort((a,b) => {return this.lookupName(a._id).bezeichnung > this.lookupName(b._id).bezeichnung})
-          .map(d => { return <span>{this.lookupName(d._id).bezeichnung}: {d.frei}<br/></span> })}
-        </p>
+      <div className="App mdc-typography">
+        <div className="mdc-layout-grid">
+          <div className="mdc-layout-grid__inner">
+            {this.state.data.sort((a,b) => {return this.lookupName(a._id).bezeichnung > this.lookupName(b._id).bezeichnung})
+            .map(d => { return (
+              <div className="mdc-layout-grid__cell">
+                <div className="mdc-card">
+                  <h1 className="mdc-card__title mdc-card__title--large">{this.lookupName(d._id).bezeichnung}</h1>
+                  Frei: {d.frei}
+                </div>
+              </div> )})}
+          </div>
+        </div>
+        <script>mdc.autoInit()</script>
       </div>
     );
   }
