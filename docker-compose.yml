@@ -1,0 +1,22 @@
+version: '3'
+services:
+  db:
+    image: 'mongo'
+    volumes:
+      - ./db:/data/db
+  server:
+    build: server/
+    depends_on:
+      - "db"
+  api:
+    build: api/
+    depends_on:
+      - "db"
+    ports:
+      - "3000:3000"
+  website:
+    build: website/
+    ports:
+      - "80:3000"
+    depends_on:
+      - "api"
