@@ -7,6 +7,7 @@
     "@material/layout-grid": "^0.24.0",
     "axios": "^0.17.1",
     "material-components-web": "^0.28.0",
+    "moment": "^2.20.1",
     "react": "^16.2.0",
     "react-dom": "^16.2.0",
     "react-scripts": "1.1.0"

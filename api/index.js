@@ -28,12 +28,23 @@ app.get('/current', (req, res) => {
       }, {
         $group: {
           _id: "$index",
-          frei: { "$first": "$frei"}
+          frei: { "$first": "$frei"},
+          timestamp: { "$first": "$timestamp"}
         }
       }
     ], (err, data) => {
       res.send({parkhausData: parkhausData, data: data});
     });
+  });
+});
+app.get('/park/:id', (req, res) => {
+  ParkhausModel.findOne({index: req.params.id}, (err, parkhaus) => {
+    res.send(parkhaus);
+  });
+});
+app.get('/park', (req, res) => {
+  ParkhausModel.find((err, data) => {
+    res.send(data);
   });
 });
 app.listen(3000, () => {

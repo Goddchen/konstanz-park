@@ -3,6 +3,7 @@ import './App.css';
 import axios from 'axios';
 import 'material-components-web/dist/material-components-web.min.css'
 import 'material-components-web/dist/material-components-web.js'
+import moment from 'moment';
 
 class App extends Component {
   constructor() {
@@ -29,7 +30,8 @@ class App extends Component {
               <div className="mdc-layout-grid__cell">
                 <div className="mdc-card">
                   <h1 className="mdc-card__title mdc-card__title--large">{this.lookupName(d._id).bezeichnung}</h1>
-                  Frei: {d.frei}
+                  Frei: {d.frei}<br/>
+                  Aktualisiert: {moment().format("DD.MM.YYYY HH:mm:ss")}
                 </div>
               </div> )})}
           </div>
