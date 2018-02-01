@@ -12,7 +12,7 @@ class App extends Component {
     this.loadData();
   }
   loadData() {
-    axios.get('http://192.168.0.80:3000/current')
+    axios.get('http://localhost:3000/current')
     .then(res => {
       this.setState({data: res.data.data, parkhausData: res.data.parkhausData});
     });
