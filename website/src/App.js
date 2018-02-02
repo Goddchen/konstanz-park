@@ -20,6 +20,14 @@ class App extends Component {
   lookupName(id) {
     return this.state.parkhausData.find(ph => ph.index === id);
   }
+  componentDidMount() {
+    this.interval = setInterval(() => {
+      this.loadData();
+    }, 60*1000);
+  }
+  componentWillUnmount() {
+    clearInterval(this.interval);
+  }
   render() {
     return (
       <div className="App mdc-typography">
@@ -27,7 +35,7 @@ class App extends Component {
           <div className="mdc-layout-grid__inner">
             {this.state.data.sort((a,b) => {return this.lookupName(a._id).bezeichnung > this.lookupName(b._id).bezeichnung})
             .map(d => { return (
-              <div className="mdc-layout-grid__cell">
+              <div className="mdc-layout-grid__cell" key={d._id}>
                 <div className="mdc-card">
                   <h1 className="mdc-card__title mdc-card__title--large">{this.lookupName(d._id).bezeichnung}</h1>
                   Frei: {d.frei}<br/>
